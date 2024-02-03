@@ -75,4 +75,51 @@
         <addNotNullConstraint tableName="email_data" columnName="user_id"/>
     </changeSet>
 
+    <!--user 1 -->
+    <changeSet id="insert_users" author="efrem">
+        <insert tableName="user">
+            <column name="id" value="1" />
+            <column name="name" value="John" />
+            <column name="date_of_birth" value="1989-01-01" />
+            <column name="password" value="{bcrypt}$2a$10$fulF30GpJW2oxJWizHDn2.w0Tv3wPsAq0M/9nOfLBonlUI/SexB92" />
+        </insert>
+        <insert tableName="phone_data">
+            <column name="id" value="1" />
+            <column name="user_id" value="1" />
+            <column name="phone" value="79211112233" />
+        </insert>
+        <insert tableName="email_data">
+            <column name="id" value="2" />
+            <column name="user_id" value="1" />
+            <column name="email" value="john@mail.com" />
+        </insert>
+        <insert tableName="account">
+            <column name="user_id" value="1" />
+            <column name="balance" value="100" />
+        </insert>
+
+        <!--user 2-->
+        <insert tableName="user">
+            <column name="id" value="2" />
+            <column name="name" value="Jack" />
+            <column name="date_of_birth" value="1959-01-01" />
+            <column name="password" value="{bcrypt}$2a$10$fulF30GpJW2oxJWizHDn2.w0Tv3wPsAq0M/9nOfLBonlUI/SexB92" />
+        </insert>
+        <insert tableName="phone_data">
+            <column name="id" value="3" />
+            <column name="user_id" value="2" />
+            <column name="phone" value="79119998877" />
+        </insert>
+        <insert tableName="email_data">
+            <column name="id" value="4" />
+            <column name="user_id" value="2" />
+            <column name="email" value="jack@mail.com" />
+        </insert>
+        <insert tableName="account">
+            <column name="user_id" value="2" />
+            <column name="balance" value="45.45" />
+        </insert>
+
+    </changeSet>
+
 </databaseChangeLog>
