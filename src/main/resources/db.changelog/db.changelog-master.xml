@@ -69,4 +69,10 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
+    <changeSet id="not_null_constraints" author="efrem">
+        <addNotNullConstraint tableName="user" columnName="date_of_birth"/>
+        <addNotNullConstraint tableName="phone_data" columnName="user_id"/>
+        <addNotNullConstraint tableName="email_data" columnName="user_id"/>
+    </changeSet>
+
 </databaseChangeLog>
