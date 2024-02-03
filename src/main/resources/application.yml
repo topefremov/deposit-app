@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.xml
+  datasource:
+    username: postgres
+    password: password
+    url: jdbc:postgresql://localhost:5432/deposit_app
