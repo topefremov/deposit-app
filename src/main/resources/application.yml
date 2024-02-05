@@ -1,9 +1,16 @@
+app:
+  jwt:
+    secret: 1234567890abcdeghahjkqwertyasdgh
+    expiration-time: 300000
 spring:
   jpa:
     open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
   liquibase:
     change-log: classpath:db.changelog/db.changelog-master.xml
   datasource:
     username: postgres
     password: password
-    url: jdbc:postgresql://localhost:5432/deposit_app
+    url: jdbc:postgresql://localhost/deposit_app

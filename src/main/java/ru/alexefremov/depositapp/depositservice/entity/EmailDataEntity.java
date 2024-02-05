@@ -19,7 +19,7 @@ public class EmailDataEntity {
     private Long id;
 
     @Column(name = "email", unique = true, nullable = false)
-    private String phone;
+    private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
