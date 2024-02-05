@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationProperties {
 
     private Jwt jwt = new Jwt();
+    private int depositLimitPercent = 207;
 
     @Getter
     @Setter

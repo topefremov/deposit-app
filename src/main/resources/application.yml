@@ -2,6 +2,7 @@ app:
   jwt:
     secret: 1234567890abcdeghahjkqwertyasdgh
     expiration-time: 300000
+  deposit-limit-percent: 207
 spring:
   jpa:
     open-in-view: false
@@ -14,3 +15,6 @@ spring:
     username: postgres
     password: password
     url: jdbc:postgresql://localhost/deposit_app
+logging:
+  level:
+    ru.alexefremov.depositapp.depositservice: DEBUG

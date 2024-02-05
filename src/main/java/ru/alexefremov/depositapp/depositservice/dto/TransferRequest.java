@@ -4,10 +4,11 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
+import java.math.BigDecimal;
+
 @Value
 @Builder
 @Jacksonized
-public class PhoneDto {
-    long id;
-    String number;
+public class TransferRequest {
+    BigDecimal value;
 }

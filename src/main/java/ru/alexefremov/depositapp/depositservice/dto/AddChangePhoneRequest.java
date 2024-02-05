@@ -8,5 +8,5 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class AddChangePhoneRequest {
-    String phone;
+    String number;
 }

@@ -122,4 +122,20 @@
 
     </changeSet>
 
+    <changeSet id="add_initial_balance_column" author="efrem">
+        <addColumn tableName="account">
+            <column name="initial_balance" type="numeric(10, 2)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <update tableName="account">
+            <column name="initial_balance" value="100"/>
+            <where>user_id = 1</where>
+        </update>
+        <update tableName="account">
+            <column name="initial_balance" value="45.45"/>
+            <where>user_id = 2</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>

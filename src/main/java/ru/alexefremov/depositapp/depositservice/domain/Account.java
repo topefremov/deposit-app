@@ -1,4 +1,4 @@
-package ru.alexefremov.depositapp.depositservice.dto;
+package ru.alexefremov.depositapp.depositservice.domain;
 
 import lombok.Builder;
 import lombok.Value;
@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 @Value
 @Builder
 @Jacksonized
-public class TransferRequestDto {
-    BigDecimal value;
+public class Account {
+    long id;
+    BigDecimal initialBalance;
+    BigDecimal balance;
 }

@@ -16,6 +16,9 @@ public class AccountEntity {
     @Id
     private Long id;
 
+    @Column(name = "initial_balance", nullable = false)
+    private BigDecimal initialBalance;
+
     @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 

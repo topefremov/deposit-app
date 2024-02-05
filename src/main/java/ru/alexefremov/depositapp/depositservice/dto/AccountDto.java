@@ -11,5 +11,6 @@ import java.math.BigDecimal;
 @Jacksonized
 public class AccountDto {
     long id;
-    BigDecimal balance;
+    BigDecimal initialBalance;
+    BigDecimal currentBalance;
 }
