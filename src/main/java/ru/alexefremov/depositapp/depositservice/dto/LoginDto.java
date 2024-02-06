@@ -5,6 +5,7 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Value
 @Builder
@@ -13,5 +14,6 @@ public class LoginDto {
     @NotBlank
     String username;
     @NotBlank
+    @Size(min = 8, max = 500)
     String password;
 }

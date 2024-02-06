@@ -17,6 +17,7 @@ import ru.alexefremov.depositapp.depositservice.search.SearchFilter;
 import ru.alexefremov.depositapp.depositservice.search.UserData;
 import ru.alexefremov.depositapp.depositservice.service.UserFacade;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,7 +29,7 @@ public class UserController {
     private final UserFacade userFacade;
 
     @GetMapping(value = "search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<UserDataDto>> search(@ParameterObject SearchRequestDto searchRequestDto,
+    public ResponseEntity<Page<UserDataDto>> search(@Valid @ParameterObject SearchRequestDto searchRequestDto,
                                                     @ParameterObject Pageable pageable) {
         var searchFilter = SearchFilter.builder()
                 .name(searchRequestDto.getName())
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping(value = "{userId}/phones", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PhoneDto> addPhone(@PathVariable("userId") Long userId, @RequestBody AddChangePhoneRequest request) {
+    public ResponseEntity<PhoneDto> addPhone(@PathVariable("userId") Long userId, @Valid @RequestBody AddChangePhoneRequest request) {
         Phone phone = userFacade.addPhone(userId, request.getNumber());
         var phoneDto = PhoneDto.builder().id(phone.getId()).number(phone.getNumber()).build();
         return ResponseEntity.ok(phoneDto);
@@ -52,7 +53,7 @@ public class UserController {
     @PutMapping(value = "{userId}/phones/{phoneId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PhoneDto> changePhone(@PathVariable("userId") Long userId,
                                                 @PathVariable("phoneId") Long phoneId,
-                                                @RequestBody AddChangePhoneRequest request) {
+                                                @Valid @RequestBody AddChangePhoneRequest request) {
         Phone phone = userFacade.changePhone(userId, phoneId, request.getNumber());
         var phoneDto = PhoneDto.builder().id(phone.getId()).number(phone.getNumber()).build();
         return ResponseEntity.ok(phoneDto);
@@ -66,7 +67,8 @@ public class UserController {
     }
 
     @PostMapping(value = "{userId}/emails", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EmailDto> addEmail(@PathVariable("userId") Long userId, @RequestBody AddChangeEmailRequest request) {
+    public ResponseEntity<EmailDto> addEmail(@PathVariable("userId") Long userId,
+                                             @Valid @RequestBody AddChangeEmailRequest request) {
         Email email = userFacade.addEmail(userId, request.getEmail());
         var emailDto = EmailDto.builder().id(email.getId()).email(email.getEmail()).build();
         return ResponseEntity.ok(emailDto);
@@ -75,7 +77,7 @@ public class UserController {
     @PutMapping(value = "{userId}/emails/{emailId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmailDto> changeEmail(@PathVariable("userId") Long userId,
                                                 @PathVariable("emailId") Long emailId,
-                                                @RequestBody AddChangeEmailRequest request) {
+                                                @Valid @RequestBody AddChangeEmailRequest request) {
         Email email = userFacade.changeEmail(userId, emailId, request.getEmail());
         var emailDto = EmailDto.builder().id(email.getId()).email(email.getEmail()).build();
         return ResponseEntity.ok(emailDto);
@@ -89,7 +91,8 @@ public class UserController {
     }
 
     @PostMapping(value = "{userId}/transfer", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> transferMoney(@PathVariable("userId") Long userId, @RequestBody TransferRequest transferRequest) {
+    public ResponseEntity<?> transferMoney(@PathVariable("userId") Long userId,
+                                           @Valid @RequestBody TransferRequest transferRequest) {
         Account account = userFacade.transferMoney(userId, transferRequest.getValue());
         var accountDto = AccountDto.builder()
                 .id(account.getId())

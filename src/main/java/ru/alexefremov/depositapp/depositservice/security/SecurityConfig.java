@@ -30,14 +30,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, DelegatedAuthenticationEntryPoint delegatedAuthenticationEntryPoint) throws Exception {
         http.csrf().disable()
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                        .authorizeHttpRequests(auth -> auth
-                                .antMatchers("/auth").permitAll()
-                                .mvcMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                                .antMatchers("/**").authenticated());
-//                .anyRequest().authenticated();
+                .authorizeHttpRequests(auth -> auth
+                        .antMatchers("/auth").permitAll()
+                        .mvcMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .antMatchers("/**").authenticated())
+                .exceptionHandling()
+                .authenticationEntryPoint(delegatedAuthenticationEntryPoint);
 
         http.addFilterBefore(new JwtAuthFilter(jwtUtils()), UsernamePasswordAuthenticationFilter.class);
         return http.build();

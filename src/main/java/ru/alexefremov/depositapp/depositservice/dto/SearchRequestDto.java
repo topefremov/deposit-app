@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Value
@@ -14,9 +16,11 @@ import java.time.LocalDate;
 @Jacksonized
 public class SearchRequestDto {
     String name;
+    @Email
     String email;
+    @Pattern(regexp = "^[1-9]{1,13}$")
     String phone;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    @Parameter(example = "01.01.1990", schema = @Schema(type = "date"))
+    @Parameter(example = "01.01.1900", schema = @Schema(type = "date"))
     LocalDate dateOfBirth;
 }
