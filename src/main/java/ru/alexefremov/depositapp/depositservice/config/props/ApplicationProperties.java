@@ -13,6 +13,7 @@ public class ApplicationProperties {
 
     private Jwt jwt = new Jwt();
     private int depositLimitPercent = 207;
+    private boolean initialLoad = true;
 
     @Getter
     @Setter

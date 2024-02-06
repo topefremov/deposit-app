@@ -16,6 +16,9 @@ public class CalculationOfInterestJob {
     private final UserFacade userFacade;
     @Scheduled(fixedRate = 30, initialDelay = 30, timeUnit = TimeUnit.SECONDS)
     public void calculateInterest() {
+        /*
+         * Тут загружаются все идентификаторы аккаунтов, в реальном мире их может быть слишком много, но тут для простоты они просто загружаются в память
+         */
         List<Long> accountsIds = accountService.findAllAccountsIds();
         for (Long accountId : accountsIds) {
             userFacade.calculateInterest(accountId);

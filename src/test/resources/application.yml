@@ -3,6 +3,7 @@ app:
     secret: 1234567890abcdeghahjkqwertyasdgh
     expiration-time: 300000
   deposit-limit-percent: 207
+  initial-load: false
 springdoc:
   api-docs:
     enabled: false
