@@ -2,9 +2,9 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="initial_schema" author="efrem">
-        <createSequence sequenceName="user_seq" startValue="1" incrementBy="50"/>
-        <createSequence sequenceName="email_data_seq" startValue="1" incrementBy="50"/>
-        <createSequence sequenceName="phone_data_seq" startValue="1" incrementBy="50"/>
+        <createSequence sequenceName="user_seq" startValue="3" incrementBy="50"/>
+        <createSequence sequenceName="email_data_seq" startValue="3" incrementBy="50"/>
+        <createSequence sequenceName="phone_data_seq" startValue="3" incrementBy="50"/>
 
         <createTable tableName="user">
             <column name="id" type="bigint" >
@@ -89,7 +89,7 @@
             <column name="phone" value="79211112233" />
         </insert>
         <insert tableName="email_data">
-            <column name="id" value="2" />
+            <column name="id" value="1" />
             <column name="user_id" value="1" />
             <column name="email" value="john@mail.com" />
         </insert>
@@ -106,12 +106,12 @@
             <column name="password" value="{bcrypt}$2a$10$fulF30GpJW2oxJWizHDn2.w0Tv3wPsAq0M/9nOfLBonlUI/SexB92" />
         </insert>
         <insert tableName="phone_data">
-            <column name="id" value="3" />
+            <column name="id" value="2" />
             <column name="user_id" value="2" />
             <column name="phone" value="79119998877" />
         </insert>
         <insert tableName="email_data">
-            <column name="id" value="4" />
+            <column name="id" value="2" />
             <column name="user_id" value="2" />
             <column name="email" value="jack@mail.com" />
         </insert>
