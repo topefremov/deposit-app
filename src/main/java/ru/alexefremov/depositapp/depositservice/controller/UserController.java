@@ -91,9 +91,9 @@ public class UserController {
     }
 
     @PostMapping(value = "{userId}/transfer", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> transferMoney(@PathVariable("userId") Long userId,
-                                           @Valid @RequestBody TransferRequest transferRequest) {
-        Account account = userFacade.transferMoney(userId, transferRequest.getValue());
+    public ResponseEntity<AccountDto> transferMoney(@PathVariable("userId") Long userId,
+                                           @Valid @RequestBody TransferRequestDto transferRequestDto) {
+        Account account = userFacade.transferMoney(userId, transferRequestDto.getValue());
         var accountDto = AccountDto.builder()
                 .id(account.getId())
                 .initialBalance(account.getInitialBalance())

@@ -4,9 +4,10 @@ app:
     expiration-time: 300000
   deposit-limit-percent: 207
 springdoc:
+  api-docs:
+    enabled: false
   swagger-ui:
-    display-request-duration: true
-  default-produces-media-type: application/json
+    enabled: false
 spring:
   elasticsearch:
     uris: http://localhost:9200
@@ -24,5 +25,6 @@ spring:
     url: jdbc:postgresql://localhost/deposit_app
 logging:
   level:
+    root: INFO
     ru.alexefremov.depositapp.depositservice: DEBUG
     org.elasticsearch.client.RestClient: ERROR

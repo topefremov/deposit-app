@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Value
 @Builder
 @Jacksonized
-public class TransferRequest {
+public class TransferRequestDto {
     @NotNull
     @Positive
     BigDecimal value;

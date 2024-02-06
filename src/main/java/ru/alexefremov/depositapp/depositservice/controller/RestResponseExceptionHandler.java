@@ -30,8 +30,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(BusinessLayerException.class)
-    public ErrorDto handleBusinessLayerException(BusinessLayerException e) {
-        log.warn(e.getMessage());
+    public ErrorDto handleBusinessLayerException(BusinessLayerException e, WebRequest webRequest) {
+        log.warn("Request {}. Error message: {}", webRequest, e.getMessage());
         return ErrorDto.builder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .description(e.getMessage())
@@ -41,8 +41,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     @ExceptionHandler(AccessDeniedException.class)
-    public ErrorDto handleAccessDeniedException(AccessDeniedException e) {
-        log.warn(e.getMessage());
+    public ErrorDto handleAccessDeniedException(AccessDeniedException e, WebRequest webRequest) {
+        log.warn("Request {}. Error message: {}", webRequest, e.getMessage());
         return ErrorDto.builder()
                 .code(HttpStatus.FORBIDDEN.value())
                 .description("Access denied")
@@ -52,8 +52,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     @ExceptionHandler(AuthenticationException.class)
-    public ErrorDto handleAuthenticationException(AuthenticationException e) {
-        log.warn(e.getMessage());
+    public ErrorDto handleAuthenticationException(AuthenticationException e, WebRequest webRequest) {
+        log.warn("Request {}. Error message: {}", webRequest, e.getMessage());
         return ErrorDto.builder()
                 .code(HttpStatus.UNAUTHORIZED.value())
                 .description("Unauthorized access")
@@ -62,11 +62,12 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
     @Override
     @Nonnull
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        List<String> details = ex.getFieldErrors().stream()
+        log.warn("Request {}. Error message: {}", request, e.getMessage());
+        List<String> details = e.getFieldErrors().stream()
                 .map(fe -> String.format("Rejected field: %s. Rejected value: %s. Reason: %s", fe.getField(),
                         fe.getRejectedValue(), fe.getDefaultMessage())).collect(Collectors.toList());
         return ResponseEntity.badRequest().body(ErrorDto.builder()
