@@ -12,8 +12,8 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import ru.alexefremov.depositapp.depositservice.repository.UserDataRepository;
 import ru.alexefremov.depositapp.depositservice.search.UserData;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,16 +43,14 @@ public class UserChangedEventListener {
     private static ResultSetExtractor<UserData> getExtractor() {
         return rs -> {
             UserData userData = null;
-            List<UserData.Phone> phones = new ArrayList<>();
-            List<UserData.Email> emails = new ArrayList<>();
+            Set<UserData.Phone> phones = new HashSet<>();
+            Set<UserData.Email> emails = new HashSet<>();
             while (rs.next()) {
                 if (userData == null) {
                     userData = new UserData();
                     userData.setId(rs.getLong("id"));
                     userData.setName(rs.getString("name"));
                     userData.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
-                    userData.setPhones(phones);
-                    userData.setEmails(emails);
                     userData.setAccount(UserData.Account.builder()
                             .id(userData.getId())
                             .balance(rs.getBigDecimal("balance"))
@@ -68,6 +66,10 @@ public class UserChangedEventListener {
                         .build());
             }
 
+            if (userData != null) {
+                userData.setEmails(emails.stream().sorted(Comparator.comparing(UserData.Email::getId)).collect(Collectors.toList()));
+                userData.setPhones(phones.stream().sorted(Comparator.comparing(UserData.Phone::getId)).collect(Collectors.toList()));
+            }
             return userData;
         };
     }

@@ -18,7 +18,7 @@ import ru.alexefremov.depositapp.depositservice.security.AuthService;
 public class AuthController {
 
     private final AuthService authService;
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TokenDto> auth(@RequestBody LoginDto loginDto) {
         String token = authService.authenticate(loginDto.getUsername(), loginDto.getPassword());
 

@@ -66,7 +66,7 @@ public class EmailService {
         // here we acquired lock on users emails
 
         if (userEmails.size() == 1) {
-            throw new BusinessLayerException("Can't delete the last user's Email");
+            throw new BusinessLayerException("Can't delete the last user's email");
         }
 
         EmailDataEntity emailDataEntity = userEmails.stream().filter(p -> p.getId() == emailId).findFirst()

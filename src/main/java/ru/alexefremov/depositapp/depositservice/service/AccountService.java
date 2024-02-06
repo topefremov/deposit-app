@@ -27,7 +27,7 @@ public class AccountService {
     public boolean calculateInterest(long accountId) {
         AccountEntity account = accountsRepository.findByIdWithLock(accountId);
         if (account == null) {
-            throw new BusinessLayerException("Account with id " + account + " not found");
+            throw new BusinessLayerException("Account with id " + accountId + " not found");
         }
         return doCalculateInterest(account);
     }
