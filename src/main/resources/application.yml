@@ -4,6 +4,8 @@ app:
     expiration-time: 300000
   deposit-limit-percent: 207
 spring:
+  elasticsearch:
+    uris: http://localhost:9200
   jpa:
     open-in-view: false
     properties:
@@ -18,3 +20,4 @@ spring:
 logging:
   level:
     ru.alexefremov.depositapp.depositservice: DEBUG
+    org.elasticsearch.client.RestClient: ERROR

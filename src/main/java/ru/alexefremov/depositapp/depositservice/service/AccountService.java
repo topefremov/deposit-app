@@ -19,11 +19,17 @@ import java.util.List;
 public class AccountService {
     private final AccountEntityRepository accountsRepository;
     private final int depositLimitPercent;
-    public void calculateInterest(long accountId) {
+
+    @Transactional(readOnly = true)
+    public List<Long> findAllAccountsIds() {
+        return accountsRepository.findAllAccountsIds();
+    }
+    public boolean calculateInterest(long accountId) {
         AccountEntity account = accountsRepository.findByIdWithLock(accountId);
-        if (account != null) {
-            doCalculateInterest(account);
+        if (account == null) {
+            throw new BusinessLayerException("Account with id " + account + " not found");
         }
+        return doCalculateInterest(account);
     }
 
     public Account transferMoney(long fromUserId, long toUserId, BigDecimal amount) {
@@ -86,18 +92,21 @@ public class AccountService {
         return new TransferData(fromAccount, toAccount);
     }
 
-    private void doCalculateInterest(AccountEntity account) {
+    private boolean doCalculateInterest(AccountEntity account) {
         var currentBalance = account.getBalance();
         var maxDeposit = getMaxDepositAvailable(account.getInitialBalance());
         BigDecimal interest = currentBalance.multiply(new BigDecimal("0.1")).setScale(2, RoundingMode.HALF_UP);
         var newBalance = currentBalance.add(interest);
 
+        boolean success = false;
         if (newBalance.compareTo(maxDeposit) <= 0) {
             account.setBalance(newBalance);
             log.debug("New balance for account {} is {}", account.getId(), account.getBalance());
+            success = true;
         } else {
             log.debug("Balance for account {} has reached its maximum. Current balance: {}. Limit: {}", account.getId(), account.getBalance(), maxDeposit);
         }
+        return success;
     }
 
     private BigDecimal getMaxDepositAvailable(BigDecimal balance) {
